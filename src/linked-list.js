@@ -20,13 +20,16 @@ class LinkedList {
             this._tail=node;
         } 
         this.length++;
+        return this;
     }
 
     head() {
+        if (this._head == null) return null;
         return this._head.data ; 
     }
 
     tail() {
+        if (this._tail == null) return null;
         return this._tail.data;
     }
 
@@ -35,11 +38,14 @@ class LinkedList {
         for(let i=0; i<index;i++){
            currentNode = currentNode.next;
         }
-        return currentNode.data;
-            
+        return currentNode.data;            
     }
 
     insertAt(index, data) {
+        if (this.length == 0) {
+            return this.append(data);
+        }
+
         let currentNode=this._head;
         for(let i=0; i<index;i++){
            currentNode = currentNode.next;
@@ -52,8 +58,7 @@ class LinkedList {
         
         node.next=currentNode;
         this.length++;
-
-
+        return this;
     }
 
     isEmpty() {
@@ -63,15 +68,20 @@ class LinkedList {
         return false;
     }
 
-    clear() {
-        
-        this._head.data=null;
-        this._tail.data=null;
-        this.length=0;
-
+    clear() {        
+        this._head = null;
+        this._tail = null;
+        this.length = 0;
+        return this;
     }
 
     deleteAt(index) {
+        if (this.length == 1) {
+            this._head = null;
+            this._tail = null;
+            return this;
+        }
+
         let currentNode=this._head;
         for(let i=0; i<index+1;i++){
            currentNode = currentNode.next;
@@ -79,8 +89,8 @@ class LinkedList {
         currentNode.prev.prev.next=currentNode;
         currentNode.prev=currentNode.prev.prev;
         
-        
         this.length--;
+        return this;
     }
 
     reverse() {
@@ -97,7 +107,7 @@ class LinkedList {
             currentNode = currentNode.next;
 
         }
-        
+        return this;
     }
 
     indexOf(data) {
@@ -107,7 +117,6 @@ class LinkedList {
             currentNode = currentNode.next;
         }
         return -1;
-
     }
 }
 
